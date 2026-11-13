@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Fase 2</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="gameplay.css">
+</head>
+<body class="phase-two">
+  <main id="game" class="game">
+    <header class="hud">
+      <div class="box">FASE 2/3</div>
+      <div class="box">TEMPO: 10 SEGUNDOS</div>
+    </header>
+    <section class="arena box" aria-labelledby="phase-title">
+      <h1 id="phase-title">ENCONTRE AS 15 CHAVES!</h1>
+      <div class="timer" aria-label="Temporizador de 10 segundos"><span></span></div>
+      <div class="key-grid" aria-label="Chaves da fase 2">
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 1"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 2"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 3"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 4"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 5"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 6"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 7"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 8"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 9"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 10"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 11"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 12"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 13"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 14"><span aria-hidden="true">🔑</span></label>
+        <label class="key"><input type="checkbox" aria-label="Coletar chave 15"><span aria-hidden="true">🔑</span></label>
+      </div>
+      <p class="progress">CHAVES: <span class="counter"></span>/15</p>
+      <p class="hint">CLIQUE EM CADA CHAVE PARA COLETÁ-LA!</p>
+    </section>
+    <section class="screen success" aria-live="polite">
+      <h2>PORTA ABERTA!</h2>
+      <p>Você coletou todas as chaves da fase 2.</p>
+      <a class="box btn" href="gameplay3.html">&gt; IR PARA A FASE 3</a>
+    </section>
+    <section class="screen timeout" aria-live="assertive">
+      <h2>TEMPO ESGOTADO!</h2>
+      <p>A porta continua trancada.</p>
+      <a class="box btn" href="index.html">&gt; VOLTAR AO INÍCIO</a>
+    </section>
+    <nav class="back-link" aria-label="Navegação da fase">
+      <a href="index.html">VOLTAR AO INÍCIO</a>
+    </nav>
+  </main>
+</body>
+</html>

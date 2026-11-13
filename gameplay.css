@@ -1,0 +1,246 @@
+:root {
+  color-scheme: dark;
+  --background: #0b0c1e;
+  --foreground: #e8ebff;
+  --accent: #ffe060;
+  --panel: #151a44;
+  --border: #f4f4ff;
+  box-sizing: border-box;
+}
+
+* { box-sizing: inherit; }
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Press Start 2P", ui-monospace, Menlo, monospace;
+}
+
+body { padding: 12px; }
+
+body.phase-two {
+  --background: #151027;
+  --panel: #33204c;
+  --accent: #ff9fdb;
+}
+
+body.phase-three {
+  --background: #071a22;
+  --panel: #12363e;
+  --accent: #75f0d2;
+}
+
+.game {
+  position: relative;
+  width: min(100%, 720px);
+  margin: 0 auto;
+  counter-reset: collected;
+}
+
+.box {
+  border: 3px solid var(--border);
+  border-radius: 6px;
+  background: linear-gradient(145deg, #2a3ab8, #0b1260);
+  box-shadow: 0 0 0 2px #0a0a2a, inset 0 0 0 2px #5a6ad8;
+  color: #fff;
+  text-shadow: 2px 2px #000;
+}
+
+.hud {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.hud .box {
+  flex: 1;
+  padding: 10px 6px;
+  font-size: clamp(7px, 1.5vw, 10px);
+  line-height: 1.7;
+  text-align: center;
+}
+
+.arena {
+  padding: 18px;
+  background:
+    linear-gradient(#0005, #0005),
+    repeating-linear-gradient(0deg, #fff08 0 2px, transparent 2px 32px),
+    repeating-linear-gradient(90deg, #fff08 0 2px, transparent 2px 32px),
+    var(--panel);
+  text-align: center;
+}
+
+.arena h1,
+.screen h2 {
+  margin: 0 0 16px;
+  color: var(--accent);
+  font-size: clamp(11px, 2.5vw, 16px);
+  line-height: 1.8;
+  text-shadow: 3px 3px #000;
+}
+
+.timer {
+  height: 14px;
+  margin: 0 auto 18px;
+  overflow: hidden;
+  border: 2px solid #fff;
+  background: #070712;
+}
+
+.timer span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  background: linear-gradient(90deg, #57e389, #ffe060, #ff5555);
+  animation: drain 10s linear forwards;
+}
+
+@keyframes drain {
+  to { transform: scaleX(0); }
+}
+
+.key-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(38px, 64px));
+  justify-content: center;
+  gap: clamp(7px, 2vw, 14px);
+}
+
+.key {
+  display: grid;
+  min-height: 54px;
+  place-items: center;
+  border: 2px solid #8e9bff;
+  border-radius: 5px;
+  background: #101642;
+  box-shadow: inset 0 0 0 2px #293985, 0 3px #080b24;
+  cursor: pointer;
+  font-size: clamp(22px, 5vw, 32px);
+  transition: transform 120ms ease, filter 120ms ease, background 120ms ease;
+}
+
+.key:hover,
+.key:focus-within {
+  filter: brightness(1.35);
+  transform: translateY(-3px);
+}
+
+.key input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.key input:focus-visible + span {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.key:has(input:checked) { counter-increment: collected; }
+
+.key input:checked + span { font-size: 0; }
+
+.key input:checked + span::after {
+  content: "✓";
+  color: #75f0a6;
+  font-size: 26px;
+}
+
+.progress {
+  margin: 18px 0 0;
+  color: var(--accent);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+.counter::after { content: counter(collected); }
+
+.hint {
+  margin: 14px 0 0;
+  font-size: 8px;
+  line-height: 1.8;
+}
+
+.screen {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 18px;
+  border: 3px solid var(--border);
+  border-radius: 7px;
+  background: #10132af2;
+  box-shadow: 0 0 0 4px #050611, 0 0 40px #000;
+  text-align: center;
+}
+
+.screen p {
+  margin: 0 0 20px;
+  font-size: 9px;
+  line-height: 2;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 10px;
+  color: #fff;
+  font-size: 9px;
+  line-height: 1.8;
+  text-decoration: none;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  filter: brightness(1.25);
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.timeout {
+  display: block;
+  visibility: hidden;
+  animation: show-timeout 0s 10s forwards;
+}
+
+@keyframes show-timeout {
+  to { visibility: visible; }
+}
+
+.phase-one .game:has(.key:nth-child(1) input:checked):has(.key:nth-child(2) input:checked):has(.key:nth-child(3) input:checked):has(.key:nth-child(4) input:checked):has(.key:nth-child(5) input:checked):has(.key:nth-child(6) input:checked):has(.key:nth-child(7) input:checked):has(.key:nth-child(8) input:checked):has(.key:nth-child(9) input:checked):has(.key:nth-child(10) input:checked) .timeout,
+.phase-two .game:has(.key:nth-child(1) input:checked):has(.key:nth-child(2) input:checked):has(.key:nth-child(3) input:checked):has(.key:nth-child(4) input:checked):has(.key:nth-child(5) input:checked):has(.key:nth-child(6) input:checked):has(.key:nth-child(7) input:checked):has(.key:nth-child(8) input:checked):has(.key:nth-child(9) input:checked):has(.key:nth-child(10) input:checked):has(.key:nth-child(11) input:checked):has(.key:nth-child(12) input:checked):has(.key:nth-child(13) input:checked):has(.key:nth-child(14) input:checked):has(.key:nth-child(15) input:checked) .timeout,
+.phase-three .game:has(.key:nth-child(1) input:checked):has(.key:nth-child(2) input:checked):has(.key:nth-child(3) input:checked):has(.key:nth-child(4) input:checked):has(.key:nth-child(5) input:checked):has(.key:nth-child(6) input:checked):has(.key:nth-child(7) input:checked):has(.key:nth-child(8) input:checked):has(.key:nth-child(9) input:checked):has(.key:nth-child(10) input:checked):has(.key:nth-child(11) input:checked):has(.key:nth-child(12) input:checked):has(.key:nth-child(13) input:checked):has(.key:nth-child(14) input:checked):has(.key:nth-child(15) input:checked):has(.key:nth-child(16) input:checked):has(.key:nth-child(17) input:checked):has(.key:nth-child(18) input:checked):has(.key:nth-child(19) input:checked):has(.key:nth-child(20) input:checked) .timeout {
+  display: none;
+}
+
+.phase-one .game:has(.key:nth-child(1) input:checked):has(.key:nth-child(2) input:checked):has(.key:nth-child(3) input:checked):has(.key:nth-child(4) input:checked):has(.key:nth-child(5) input:checked):has(.key:nth-child(6) input:checked):has(.key:nth-child(7) input:checked):has(.key:nth-child(8) input:checked):has(.key:nth-child(9) input:checked):has(.key:nth-child(10) input:checked) .success,
+.phase-two .game:has(.key:nth-child(1) input:checked):has(.key:nth-child(2) input:checked):has(.key:nth-child(3) input:checked):has(.key:nth-child(4) input:checked):has(.key:nth-child(5) input:checked):has(.key:nth-child(6) input:checked):has(.key:nth-child(7) input:checked):has(.key:nth-child(8) input:checked):has(.key:nth-child(9) input:checked):has(.key:nth-child(10) input:checked):has(.key:nth-child(11) input:checked):has(.key:nth-child(12) input:checked):has(.key:nth-child(13) input:checked):has(.key:nth-child(14) input:checked):has(.key:nth-child(15) input:checked) .success,
+.phase-three .game:has(.key:nth-child(1) input:checked):has(.key:nth-child(2) input:checked):has(.key:nth-child(3) input:checked):has(.key:nth-child(4) input:checked):has(.key:nth-child(5) input:checked):has(.key:nth-child(6) input:checked):has(.key:nth-child(7) input:checked):has(.key:nth-child(8) input:checked):has(.key:nth-child(9) input:checked):has(.key:nth-child(10) input:checked):has(.key:nth-child(11) input:checked):has(.key:nth-child(12) input:checked):has(.key:nth-child(13) input:checked):has(.key:nth-child(14) input:checked):has(.key:nth-child(15) input:checked):has(.key:nth-child(16) input:checked):has(.key:nth-child(17) input:checked):has(.key:nth-child(18) input:checked):has(.key:nth-child(19) input:checked):has(.key:nth-child(20) input:checked) .success {
+  display: flex;
+}
+
+.back-link {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 8px;
+  line-height: 1.8;
+}
+
+.back-link a { color: var(--foreground); }
+
+@media (max-width: 430px) {
+  body { padding: 8px; }
+  .hud { gap: 5px; }
+  .hud .box { padding: 8px 3px; }
+  .arena { padding: 14px 8px; }
+  .key-grid { grid-template-columns: repeat(5, minmax(34px, 1fr)); gap: 6px; }
+  .key { min-height: 46px; }
+  .screen { padding: 20px 10px; }
+}
